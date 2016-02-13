@@ -1,0 +1,12 @@
+{
+  "name": "tsamsiyu/welcome",
+  "description": "Welcome framework",
+  "keywords": ["welcome", "framework"],
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "autoload": {
+    "psr-4": {
+      "welcome\\": "framework/"
+    }
+  }
+}

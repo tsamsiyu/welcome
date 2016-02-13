@@ -1,1 +1,14 @@
+# framework files
+storage
+#framework
+
+# IDE files
 .idea
+
+
+# composer
+vendor
+composer.lock
+
+# testing
+test
