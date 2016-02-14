@@ -1,4 +1,6 @@
-<?php namespace welcome\collections;
+<?php namespace welcome\collections\enum;
+
+use welcome\collections\Enum;
 
 class TypeEnum extends Enum
 {

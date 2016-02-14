@@ -1,6 +1,16 @@
 <?php namespace welcome\di;
 
-interface IBeanable
+
+use welcome\interfaces\IAccessible;
+
+interface IBeanable extends IAccessible
 {
-    public function isImplement($class);
+    public function getSingletonBean();
+
+    public function getBean();
+
+    public function afterBeanCreate();
+
+    public function afterBeanInit();
+
 }

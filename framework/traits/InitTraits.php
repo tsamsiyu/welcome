@@ -1,9 +1,15 @@
 <?php namespace welcome\traits;
 
+/**
+ * @dependency ReflectionTrait
+ *
+ * @method \ReflectionClass getReflectionClass()
+ *
+ * Class InitTraits
+ * @package welcome\traits
+ */
 trait InitTraits
 {
-    use ReflectionTrait;
-
     public function initTraits()
     {
         $obj = $this->getReflectionClass();
