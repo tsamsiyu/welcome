@@ -1,5 +1,6 @@
 <?php namespace welcome\di;
 
+use welcome\di\beans\IBeanable;
 use welcome\W;
 
 trait ProxiableTrait
@@ -19,7 +20,7 @@ trait ProxiableTrait
         return W::getAspector()->beanCall($bean, $name, $arguments);
     }
 
-    public static function delegateCallStatic($name, array $arguments, $className)
+    public static function delegateStaticCall($name, array $arguments, $className)
     {
         return W::getAspector()->beanCallStatic($className, $name, $arguments);
     }

@@ -1,36 +1,50 @@
 <?php namespace welcome;
 
-use welcome\di\Aspector;
-use welcome\di\Conveyor;
+use welcome\di\aspects\ProxyManager;
+use welcome\di\beans\BeansManager;
 
 class W
 {
-    private static $_conveyor;
-    private static $_aspector;
+    private static $_beansManager;
+    private static $_aspectsManager;
 
+    private static $_config = [
+        'beansManager' => BeansManager::class,
+        'proxyManager' => ProxyManager::class
+    ];
 
-    /**
-     * @return Conveyor
-     */
-    public static function getConveyor()
+    public static function setConfig(array $config)
     {
-        if (!isset(static::$_conveyor)) {
-            static::$_conveyor = new Conveyor();
-        }
 
-        return static::$_conveyor;
+    }
+
+    public function setManagerConfig()
+    {
+
     }
 
     /**
-     * @return Aspector
+     * @return BeansManager
      */
-    public static function getAspector()
+    public static function getBeansManager()
     {
-        if (!isset(static::$_aspector)) {
-            static::$_aspector = new Aspector();
+        if (!isset(static::$_beansManager)) {
+            static::$_beansManager = new BeansManager();
         }
 
-        return static::$_aspector;
+        return static::$_beansManager;
+    }
+
+    /**
+     * @return ProxyManager
+     */
+    public static function getAspectManager()
+    {
+        if (!isset(static::$_aspectsManager)) {
+            static::$_aspectsManager = new ProxyManager();
+        }
+
+        return static::$_aspectsManager;
     }
 
 }

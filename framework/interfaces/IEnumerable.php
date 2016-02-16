@@ -1,4 +1,4 @@
-<?php namespace welcome\collections;
+<?php namespace welcome\interfaces;
 
 interface IEnumerable
 {

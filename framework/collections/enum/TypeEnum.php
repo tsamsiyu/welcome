@@ -16,7 +16,15 @@ class TypeEnum extends Enum
     const COMPLEX = 'complex';
 
 
-    public static function check($type, $value, $excluded = false)
+    public static function groups()
+    {
+        return [
+            'common' => ['SCALAR', 'COMPLEX'],
+            'specific' => ['INT', 'FLOAT', 'STRING', 'ARY', 'OBJ', 'BOOL', 'CALLBACK']
+        ];
+    }
+
+    public static function check($value, $type)
     {
         if (static::has($type)) {
             switch($type) {
@@ -34,24 +42,9 @@ class TypeEnum extends Enum
                     return is_bool($value); break;
                 case self::CALLBACK:
                     return is_callable($value); break;
-                case self::SCALAR:
-                    if (!$excluded) {
-                        return is_scalar($value); break;
-                    } else {
-                        continue;
-                    }
-                case self::COMPLEX:
-                    if (!$excluded) {
-                        return !is_scalar($value); break;
-                    }
             }
         }
         throw new \InvalidArgumentException('Passed argument is not available type.');
-    }
-
-    public static function getExcluded()
-    {
-        return ['SCALAR', 'COMPLEX'];
     }
 
 }

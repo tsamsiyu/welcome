@@ -10,17 +10,17 @@ trait BeanableTrait
 
     public function getSingletonBean()
     {
-        return W::getConveyor()->getSingleton(static::class);
+        return W::getBeansManager()->getSingleton(static::class);
     }
 
     public function getBean()
     {
-        return W::getConveyor()->get(static::class);
+        return W::getBeansManager()->get(static::class);
     }
 
     public function initBeanableTrait()
     {
-        W::getConveyor()->set([
+        W::getBeansManager()->set([
             '#scope' => static::class
         ]);
     }

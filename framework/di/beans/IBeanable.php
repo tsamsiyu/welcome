@@ -1,4 +1,4 @@
-<?php namespace welcome\di;
+<?php namespace welcome\di\beans;
 
 
 use welcome\interfaces\IAccessible;
@@ -12,5 +12,7 @@ interface IBeanable extends IAccessible
     public function afterBeanCreate();
 
     public function afterBeanInit();
+
+    public function beforeBeanDestroy();
 
 }

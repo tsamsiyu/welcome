@@ -8,5 +8,8 @@
     "psr-4": {
       "welcome\\": "framework/"
     }
+  },
+  "require": {
+    "mustangostang/spyc": "*"
   }
 }

@@ -1,30 +1,54 @@
-<?php namespace welcome\traits;
+<?php namespace welcome\reflections;
 
-/**
- * Class ReflectionTrait
- * @package welcome\traits
- */
-trait ReflectionTrait
+class CachedReflection extends \ReflectionClass
 {
-    private static $_reflectionClass;
+    protected $_cachedMethods = [];
+    protected $_cachedProperties = [];
+    protected $_cachedConstants = [];
 
-    /**
-     * @return \ReflectionClass
-     */
-    public static function getReflectionClass()
+    public function getMethod($name)
     {
-        if (!self::$_reflectionClass) {
-            self::$_reflectionClass = new \ReflectionClass(static::class);
+        if (!isset($this->_cachedMethods[$name])) {
+            $this->_cachedMethods[$name] = parent::getMethod($name);
         }
-
-        return self::$_reflectionClass;
+        return $this->_cachedMethods[$name];
     }
 
-    public static function hasStaticProperty($name, $access)
+    public function getProperty($name)
     {
-        $reflection = static::getReflectionClass();
-        if ($reflection->hasProperty($name)) {
-            $method = $reflection->getProperty($name);
+        if (!isset($this->_cachedProperties[$name])) {
+            $this->_cachedProperties[$name] = parent::getProperty($name);
+        }
+        return $this->_cachedProperties[$name];
+    }
+
+    public function getConstant($name)
+    {
+        if (!isset($this->_cachedConstants[$name])) {
+            $this->_cachedConstants[$name] = parent::getConstant($name);
+        }
+        return $this->_cachedConstants[$name];
+    }
+
+    public function hasStaticProperty($name, $access)
+    {
+        if (parent::hasProperty($name)) {
+            $method = $this->getProperty($name);
+            if ($method->isStatic()) {
+                if ($access !== null) {
+                    return $this->hasReflectionAccess($method, $access);
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasStaticMethod($name, $access)
+    {
+        if (parent::hasMethod($name)) {
+            $method = $this->getMethod($name);
             if ($method->isStatic()) {
                 if ($access !== null) {
                     return static::hasReflectionAccess($method, $access);
@@ -36,28 +60,11 @@ trait ReflectionTrait
         return false;
     }
 
-    public static function hasStaticMethod($name, $access)
+    public function hasProperty($name, $access = null)
     {
-        $reflection = static::getReflectionClass();
-        if ($reflection->hasMethod($name)) {
-            $method = $reflection->getMethod($name);
-            if ($method->isStatic()) {
-                if ($access !== null) {
-                    return static::hasReflectionAccess($method, $access);
-                }
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static function hasProperty($name, $access = null)
-    {
-        $reflection = static::getReflectionClass();
-        if ($reflection->hasProperty($name)) {
+        if (parent::hasProperty($name)) {
             if ($access !== null) {
-                $prop = $reflection->getProperty($name);
+                $prop = $this->getProperty($name);
                 return static::hasReflectionAccess($prop, $access);
             }
             return true;
@@ -66,12 +73,11 @@ trait ReflectionTrait
         return false;
     }
 
-    public static function hasMethod($name, $access = null)
+    public function hasMethod($name, $access = null)
     {
-        $reflection = static::getReflectionClass();
-        if ($reflection->hasMethod($name)) {
+        if (parent::hasMethod($name)) {
             if ($access !== null) {
-                $method = $reflection->getMethod($name);
+                $method = $this->getMethod($name);
                 return static::hasReflectionAccess($method, $access);
             }
             return true;
@@ -80,12 +86,6 @@ trait ReflectionTrait
         return false;
     }
 
-    /**
-     * @param $entity
-     * @param $access
-     * @return bool
-     * @throws \Exception
-     */
     public static function hasReflectionAccess($entity, $access)
     {
         if (!($entity instanceof \ReflectionMethod) && !($entity instanceof \ReflectionProperty)) {

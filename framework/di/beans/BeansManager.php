@@ -1,10 +1,10 @@
-<?php namespace welcome\di;
+<?php namespace welcome\di\beans;
 
 use welcome\collections\AryHelper;
 use welcome\collections\enum\TypeEnum;
 use welcome\WObject;
 
-class Conveyor extends WObject
+class BeansManager extends WObject
 {
     private $_singletons = [];
     private $_configs = [];

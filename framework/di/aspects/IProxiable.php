@@ -1,4 +1,6 @@
-<?php namespace welcome\di;
+<?php namespace welcome\di\aspects;
+
+use welcome\di\beans\IBeanable;
 
 interface IProxiable
 {
@@ -8,5 +10,5 @@ interface IProxiable
 
     public function delegateCall($name, array $arguments, IBeanable $bean);
 
-    public static function delegateCallStatic($name, array $arguments, $className);
+    public static function delegateStaticCall($name, array $arguments, $className);
 }

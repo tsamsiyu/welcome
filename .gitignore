@@ -1,5 +1,4 @@
 # framework files
-storage
 #framework
 
 # IDE files
@@ -9,6 +8,3 @@ storage
 # composer
 vendor
 composer.lock
-
-# testing
-test

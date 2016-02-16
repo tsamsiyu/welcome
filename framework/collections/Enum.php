@@ -1,49 +1,34 @@
 <?php namespace welcome\collections;
 
 
-use welcome\traits\ReflectionTrait;
+use welcome\interfaces\IEnumerable;
+use welcome\reflections\ReflectionManager;
 
 class Enum implements IEnumerable
 {
-    use ReflectionTrait;
-
-    private static $_constantsList;
+    private $_value;
 
 
-    final private function __construct(){}
+    public function __construct($value)
+    {
+        if (static::has($value)) {
+            $this->_value = $value;
+            return;
+        }
+        throw new \Exception("Such enum has no value `$value`");
+    }
+
+    public function getValue()
+    {
+        return $this->_value;
+    }
 
     /**
      * @return array
      */
-    final public static function getList()
+    public static function getList()
     {
-        if (!self::$_constantsList) {
-            self::$_constantsList = self::getReflectionClass()->getConstants();
-        }
-
-        $res = self::$_constantsList;
-        foreach (static::getExcluded() as $item) {
-            if (isset($res[$item])) {
-                unset($res[$item]);
-            }
-        }
-
-        return $res;
-    }
-
-    public static function getExcluded()
-    {
-        return [];
-    }
-
-    public static function getExcludedList()
-    {
-        $res = [];
-        foreach (static::getExcluded() as $item) {
-            $res[$item] = self::getReflectionClass()->getConstant($item);
-        }
-
-        return $res;
+        return ReflectionManager::getInstance(static::class)->getConstants();
     }
 
     /**
@@ -52,17 +37,30 @@ class Enum implements IEnumerable
      */
     final public static function has($value)
     {
-        return in_array($value, static::getList()) || static::hasExcluded($value);
-    }
-
-    final public static function hasNoExcluded($value)
-    {
         return in_array($value, static::getList());
     }
 
-    final public static function hasExcluded($value)
+    /**
+     * @return array
+     */
+    public static function groups()
     {
-        return in_array($value, static::getExcludedList());
+        return [];
     }
 
+    /**
+     * @param string $id
+     * @param mixed $failValue
+     * @return array|null
+     */
+    public static function getGroup($id, $failValue = null)
+    {
+//        $groups = static::groups();
+//
+//        if (isset($groups[$id])) {
+//            return $groups[$id];
+//        }
+//
+//        return $failValue;
+    }
 }

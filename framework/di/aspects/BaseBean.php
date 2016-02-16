@@ -1,7 +1,14 @@
-<?php namespace welcome\di;
+<?php namespace welcome\di\aspects;
 
+use welcome\di\BeanableTrait;
+use welcome\di\beans\IBeanable;
+use welcome\di\ProxiableTrait;
 use welcome\WObject;
 
+/**
+ * Class BaseBean
+ * @package welcome\di\aspects
+ */
 class BaseBean extends WObject implements IBeanable, IProxiable
 {
     use BeanableTrait;
@@ -24,7 +31,7 @@ class BaseBean extends WObject implements IBeanable, IProxiable
 
     public static function __callStatic($name, array $arguments)
     {
-        return static::delegateCallStatic($name, $arguments, static::class);
+        return static::delegateStaticCall($name, $arguments, static::class);
     }
 
 }
