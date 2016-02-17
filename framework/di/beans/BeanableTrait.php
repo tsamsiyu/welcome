@@ -4,9 +4,11 @@ use welcome\W;
 
 trait BeanableTrait
 {
-    public function afterBeanCreate(){}
+    public function afterBeanCreate() {}
 
-    public function afterBeanInit(){}
+    public function afterBeanInit() {}
+
+    public function beforeBeanDestroy() {}
 
     public function getSingletonBean()
     {

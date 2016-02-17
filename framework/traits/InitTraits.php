@@ -3,7 +3,7 @@
 /**
  * @dependency ReflectionTrait
  *
- * @method \ReflectionClass getReflectionClass()
+ * @method static \ReflectionClass getReflectionClass()
  *
  * Class InitTraits
  * @package welcome\traits
@@ -12,7 +12,7 @@ trait InitTraits
 {
     public function initTraits()
     {
-        $obj = $this->getReflectionClass();
+        $obj = static::getReflectionClass();
         do {
             $traitNames = $obj->getTraitNames();
             foreach ($traitNames as $namespace) {

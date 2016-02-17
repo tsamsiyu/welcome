@@ -1,12 +1,13 @@
 <?php namespace welcome\collections;
 
 
+use Traversable;
 use welcome\interfaces\IEnumerable;
 use welcome\reflections\ReflectionManager;
 
-class Enum implements IEnumerable
+class Enum implements IEnumerable, \IteratorAggregate, \Countable
 {
-    private $_value;
+    protected $_value;
 
 
     public function __construct($value)
@@ -15,12 +16,17 @@ class Enum implements IEnumerable
             $this->_value = $value;
             return;
         }
-        throw new \Exception("Such enum has no value `$value`");
+        throw new \Exception("Enum has no value `$value`");
     }
 
     public function getValue()
     {
         return $this->_value;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->_value;
     }
 
     /**
@@ -62,5 +68,31 @@ class Enum implements IEnumerable
 //        }
 //
 //        return $failValue;
+    }
+
+    /**
+     * Retrieve an external iterator
+     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * <b>Traversable</b>
+     * @since 5.0.0
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->getList());
+    }
+
+    /**
+     * Count elements of an object
+     * @link http://php.net/manual/en/countable.count.php
+     * @return int The custom count as an integer.
+     * </p>
+     * <p>
+     * The return value is cast to an integer.
+     * @since 5.1.0
+     */
+    public function count()
+    {
+        return count($this->getList());
     }
 }

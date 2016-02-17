@@ -1,6 +1,6 @@
 <?php namespace welcome\di\beans;
 
-use welcome\collections\AryHelper;
+use welcome\collections\AryFilter;
 use welcome\collections\enum\TypeEnum;
 use welcome\WObject;
 
@@ -48,9 +48,9 @@ class BeansManager extends WObject
 
     public function set(array $config)
     {
-        $class = AryHelper::required($config, '#scope', TypeEnum::STRING);
-        $id = AryHelper::pull($config, '#id', $class);
-        $lazy = AryHelper::pull($config, '#lazy', true);
+        $class = AryFilter::pullOrFail($config, '#scope', TypeEnum::STRING);
+        $id = AryFilter::pull($config, '#id', $class);
+        $lazy = AryFilter::pull($config, '#lazy');
 
         $this->_configs[$id] = [$class, $config];
         if (!$lazy) {

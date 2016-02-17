@@ -17,6 +17,8 @@ class EnvManager
     private $_requiredKeys = [];
     private static $_instance;
 
+    protected $_listeners = [];
+
     /**
      * @return static
      */
@@ -43,7 +45,7 @@ class EnvManager
         if ($this->_originalPath) {
             foreach (new \DirectoryIterator($this->_originalPath) as $fileinfo) {
                 if ($fileinfo->isFile()) {
-                    $name = Fs::parseFileName($fileinfo->getBasename());
+                    $name = Fs::filename($fileinfo->getBasename());
                     $this->_map[$name] = Io::read($fileinfo->getPathname());
                 }
             }
@@ -51,7 +53,7 @@ class EnvManager
 
         foreach (new \DirectoryIterator($this->_cachePath) as $fileinfo) {
             if ($fileinfo->isFile()) {
-                $name = Fs::parseFileName($fileinfo->getBasename());
+                $name = Fs::filename($fileinfo->getBasename());
                 $this->_map[$name] = Io::read($fileinfo->getPathname());
             }
         }
@@ -80,6 +82,18 @@ class EnvManager
         }
 
         throw new \Exception('Environment is missing: ' . $val);
+    }
+
+    public function trigger()
+    {
+        foreach ($this->_listeners as $listener) {
+            call_user_func_array($listener, func_get_args());
+        }
+    }
+
+    public function listen($listener)
+    {
+        $this->_listeners[] = $listener;
     }
 
     public function required(array $keys)

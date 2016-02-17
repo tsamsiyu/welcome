@@ -1,9 +1,9 @@
 <?php namespace welcome;
 
 use welcome\interfaces\IAccessible;
+use welcome\reflections\ReflectionTrait;
 use welcome\traits\AccessibleTrait;
 use welcome\traits\InitTraits;
-use welcome\traits\ReflectionTrait;
 
 /**
  * Class WObject

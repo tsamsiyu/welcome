@@ -1,0 +1,6 @@
+required: It's field is required
+length_small: Length of this field is too small
+length_big: Length of thei field it too big
+image:
+  size_small: Picture is so small
+  size_big: Picture is too big
