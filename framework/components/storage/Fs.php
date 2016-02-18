@@ -1,15 +1,28 @@
 <?php namespace welcome\components\storage;
 
+use welcome\collections\AryFilter;
+
 class Fs
 {
     public static function join()
     {
         $argv = func_get_args();
-        $first = reset($argv);
-        if (is_array($first)) {
-            return implode(DIRECTORY_SEPARATOR, $first);
+        $firstArg = reset($argv);
+        if (is_array($firstArg)) {
+            $set = $firstArg;
+        } else {
+            $set = $argv;
         }
-        return rtrim(implode(DIRECTORY_SEPARATOR, $argv), '/');
+
+        AryFilter::rmEmpty($set);
+
+        return static::normalize(implode(DIRECTORY_SEPARATOR, $set));
+    }
+
+    public static function normalize($path)
+    {
+        $s = DIRECTORY_SEPARATOR;
+        return preg_replace('/\\' . $s . '+/', $s, $path);
     }
 
     public static function filename($file)

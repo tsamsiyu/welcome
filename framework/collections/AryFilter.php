@@ -46,6 +46,26 @@ class AryFilter
         }
     }
 
+    public static function rmEmpty(array &$data)
+    {
+        $removed = [];
+        foreach ($data as $i => $v) {
+            if (empty($v)) {
+                unset($data[$i]);
+                $removed[$i] = $v;
+            }
+        }
+        return $removed;
+    }
+
+    public static function trim(array &$data, $charlist = " \t\n\r\0\x0B")
+    {
+        foreach ($data as $k => $v) {
+            $data[$k] = trim($v, $charlist);
+        }
+        return $data;
+    }
+
     public static function pullOrFail(array &$data, $key, array $options = [])
     {
         $options = array_merge([

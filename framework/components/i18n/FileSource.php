@@ -60,8 +60,7 @@ class FileSource implements ISource
 
     public function getAlias($name = '', $asPath = false)
     {
-        die;
-        if (!$name) {
+        if (!$name && $this->_usableAlias) {
             $alias = $this->_aliases[$this->_usableAlias];
         } elseif (isset($this->_aliases[$name])) {
             $alias = $this->_aliases[$name];
@@ -79,7 +78,7 @@ class FileSource implements ISource
     {
         $alias = $this->getAlias($alias, true);
         if ($alias === false) {
-            return null;
+            return '';
         }
 
         if (is_string($segment)) {
@@ -161,6 +160,8 @@ class FileSource implements ISource
                 $alias = Fs::back($alias);
                 $path = Fs::join($this->_path, $alias, self::FILE_GENERAL);
                 if ($file = Fs::specify($path)) {
+                    var_dump($file);
+                    die;
                     $data = Io::read($file);
                     $generalAlias = Fs::join($alias, self::FILE_GENERAL);
                     $this->addLabels($generalAlias, $data);
