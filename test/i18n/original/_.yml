@@ -2,3 +2,5 @@ app: Haskey Application
 env: Haskey Environment
 foo:
   bar: FooBar
+maroow:
+  tree: Haskey tree marrow in general

@@ -3,3 +3,5 @@ join: join to Haskey
 parameters:
   pretty: We pretty company
   raise: No raise!
+foo:
+  bar: Social Foo Bar

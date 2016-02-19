@@ -140,14 +140,13 @@ class FileSource implements ISource
     {
         if ($segment) {
             do {
-                $alias = Fs::back($alias);
                 $label = Fs::join($alias, self::FILE_GENERAL);
                 if (isset($this->_set[$label])) {
-                    if ($val = AryHelp::getBySegment($this->_set[$alias], $segment, $this->segmentSplitter)) {
+                    if ($val = AryHelp::getBySegment($this->_set[$label], $segment, $this->segmentSplitter)) {
                         return $val;
                     }
                 }
-            } while($alias);
+            } while ($alias = Fs::back($alias));
         }
 
         return null;
@@ -160,8 +159,6 @@ class FileSource implements ISource
                 $alias = Fs::back($alias);
                 $path = Fs::join($this->_path, $alias, self::FILE_GENERAL);
                 if ($file = Fs::specify($path)) {
-                    var_dump($file);
-                    die;
                     $data = Io::read($file);
                     $generalAlias = Fs::join($alias, self::FILE_GENERAL);
                     $this->addLabels($generalAlias, $data);
