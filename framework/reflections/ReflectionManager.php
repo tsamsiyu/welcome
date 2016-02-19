@@ -21,6 +21,10 @@ class ReflectionManager
      */
     public static function getInstance($class)
     {
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+
         if (!static::hasInstance($class)) {
             static::createInstance($class);
         }

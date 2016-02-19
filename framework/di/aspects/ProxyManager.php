@@ -5,17 +5,17 @@ use welcome\WObject;
 
 class ProxyManager extends WObject
 {
-    public function beanGet(IBeanable $bean, $property)
+    public function beanGet(IProxiable $bean, $property)
     {
         return $bean->getIt($property);
     }
 
-    public function beanSet(IBeanable $bean, $property, $value)
+    public function beanSet(IProxiable $bean, $property, $value)
     {
         return $bean->setIt($property, $value);
     }
 
-    public function beanCall(IBeanable $bean, $method, array $arguments)
+    public function beanCall(IProxiable $bean, $method, array $arguments)
     {
         return $bean->callIt($method, $arguments);
     }
