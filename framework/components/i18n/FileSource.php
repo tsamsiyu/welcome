@@ -38,10 +38,18 @@ class FileSource implements ISource
     public function setAlias($segment, $alias = null)
     {
         $alias = $alias ?: $this->_usableAlias;
-        $pathSegment = str_replace($this->segmentSplitter, DIRECTORY_SEPARATOR, $segment);
+        $segment = str_replace($this->segmentSplitter, DIRECTORY_SEPARATOR, $segment);
 
-        if (Fs::specify($this->_path, $pathSegment)) {
-            $this->_aliases[$alias] = $pathSegment;
+        while ($segment) {
+            if (Fs::specify($this->_path, $segment)) {
+                $this->_aliases[$alias] = explode(DIRECTORY_SEPARATOR, $segment);
+                break;
+            }
+            $segment = Fs::back($segment);
+            if (Fs::specify($this->_path, $segment, self::FILE_GENERAL)) {
+                $this->_aliases[$alias] = explode(DIRECTORY_SEPARATOR, Fs::join($segment, self::FILE_GENERAL));
+                break;
+            }
         }
 
         return $this;
@@ -71,6 +79,7 @@ class FileSource implements ISource
         if ($asPath) {
             return Fs::join($alias);
         }
+
         return $alias;
     }
 

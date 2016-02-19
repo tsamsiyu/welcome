@@ -7,4 +7,6 @@ interface ISource
     public function setAlias($segment, $alias = null);
 
     public function useAlias($alias);
+
+    public function getAlias($name = '', $asPath = false);
 }
