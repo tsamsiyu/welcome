@@ -69,11 +69,4 @@ trait AccessibleTrait
         return call_user_func_array([static::class, $name], $arguments);
     }
 
-    public function setProperty($name, $value)
-    {
-        $this->setIt($name, $value);
-
-        return $this;
-    }
-
 }

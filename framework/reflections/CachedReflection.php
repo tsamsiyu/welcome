@@ -5,6 +5,7 @@ class CachedReflection extends \ReflectionClass
     protected $_cachedMethods = [];
     protected $_cachedProperties = [];
     protected $_cachedConstants = [];
+    protected $_parent;
 
     public function getMethod($name)
     {
@@ -12,6 +13,15 @@ class CachedReflection extends \ReflectionClass
             $this->_cachedMethods[$name] = parent::getMethod($name);
         }
         return $this->_cachedMethods[$name];
+    }
+
+    public function getParentClass()
+    {
+        if (!isset($this->_parent)) {
+            $this->_parent = parent::getParentClass();
+        }
+
+        return $this->_parent;
     }
 
     public function getProperty($name)
