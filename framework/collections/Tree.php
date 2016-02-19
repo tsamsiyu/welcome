@@ -9,8 +9,7 @@ class Tree extends Collection
 
     public function __construct(array $container, $type = null)
     {
-        if ($type && ($type === TypeEnum::ARY || $type === TypeEnum::OBJ || !TypeEnum::has($type))) {
-            // array, object or user defined type.
+        if ($type && ($type === TypeEnum::ARY || $type === TypeEnum::OBJ || class_exists($type))) {
             parent::__construct($container, $type);
             return;
         }
