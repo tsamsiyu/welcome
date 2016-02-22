@@ -22,16 +22,16 @@ abstract class AbstractClassCurator implements IClassCurator
 
     public function __set($name, $value)
     {
-
+        W::getProxyManager()->beanSet($this->_controlled, $name, $this);
     }
 
     public function __call($name, array $arguments)
     {
-
+//        W::getProxyManager()->beanCall($this->_controlled, $name, $this);
     }
 
     public static function __callStatic($name, array $arguments)
     {
-
+//        W::getProxyManager()->beanCallStatic($this->_controlled, $name, $this);
     }
 }

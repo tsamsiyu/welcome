@@ -7,7 +7,7 @@ class ProxyManager extends WObject
 {
     public function beanGet(IProxiable $component, $property, IClassCurator $classCurator)
     {
-        if ($classCurator->hasAccess($property, IClassCurator::PROPERTY)) {
+        if ($classCurator->hasPropertyAccess($property)) {
             return $component->getIt($property);
         }
 
@@ -20,12 +20,12 @@ class ProxyManager extends WObject
         return $bean->setIt($property, $value);
     }
 
-    public function beanCall(IProxiable $bean, $method, array $arguments)
+    public function beanCall(IProxiable $bean, $method, array $arguments, IClassCurator $classCurator)
     {
         return $bean->callIt($method, $arguments);
     }
 
-    public function beanCallStatic($className, $method, array $arguments)
+    public function beanCallStatic($className, $method, array $arguments, IClassCurator $classCurator)
     {
         if (!is_subclass_of($className, IBeanable::class)) {
             throw new \Exception("$className must be implement `IBeanable` interface to use aspects functionality.");
