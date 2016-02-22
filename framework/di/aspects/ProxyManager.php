@@ -5,9 +5,14 @@ use welcome\WObject;
 
 class ProxyManager extends WObject
 {
-    public function beanGet(IProxiable $bean, $property)
+    public function beanGet(IProxiable $component, $property, IClassCurator $classCurator)
     {
-        return $bean->getIt($property);
+        if ($classCurator->hasAccess($property, IClassCurator::PROPERTY)) {
+            return $component->getIt($property);
+        }
+
+        $componentClass = get_class($component);
+        throw new \Exception("Property `{$property}` was not defined in `{$componentClass}`");
     }
 
     public function beanSet(IProxiable $bean, $property, $value)

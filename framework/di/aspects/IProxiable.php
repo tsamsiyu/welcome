@@ -1,8 +1,9 @@
 <?php namespace welcome\di\aspects;
 
 use welcome\di\beans\IBeanable;
+use welcome\interfaces\IAccessible;
 
-interface IProxiable
+interface IProxiable extends IAccessible
 {
     public function delegateGetter($name, IBeanable $bean);
 

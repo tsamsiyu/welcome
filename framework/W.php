@@ -6,7 +6,7 @@ use welcome\di\beans\BeansManager;
 class W
 {
     private static $_beansManager;
-    private static $_aspectsManager;
+    private static $_proxyManager;
 
     private static $_config = [
         'beansManager' => BeansManager::class,
@@ -38,13 +38,13 @@ class W
     /**
      * @return ProxyManager
      */
-    public static function getAspectManager()
+    public static function getProxyManager()
     {
-        if (!isset(static::$_aspectsManager)) {
-            static::$_aspectsManager = new ProxyManager();
+        if (!isset(static::$_proxyManager)) {
+            static::$_proxyManager = new ProxyManager();
         }
 
-        return static::$_aspectsManager;
+        return static::$_proxyManager;
     }
 
 }

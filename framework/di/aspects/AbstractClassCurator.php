@@ -3,7 +3,7 @@
 use welcome\reflections\ReflectionManager;
 use welcome\W;
 
-class InternalPropertyCurator
+abstract class AbstractClassCurator implements IClassCurator
 {
     protected $_controlled;
     protected $_reflector;
@@ -17,7 +17,7 @@ class InternalPropertyCurator
 
     public function __get($name)
     {
-        W::getAspectManager()->beanGet($this->_controlled, $name, $this->_reflector);
+        W::getProxyManager()->beanGet($this->_controlled, $name, $this);
     }
 
     public function __set($name, $value)
@@ -34,5 +34,4 @@ class InternalPropertyCurator
     {
 
     }
-
 }
