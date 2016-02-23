@@ -7,7 +7,7 @@ class Tree extends Collection
     const FOR_OBJECTS = 1;
     const FOR_ARRAYS = 2;
 
-    public function __construct(array $container, $type = null)
+    public function __construct(array $container = [], $type = null)
     {
         if ($type && ($type === TypeEnum::ARY || $type === TypeEnum::OBJ || class_exists($type))) {
             parent::__construct($container, $type);
