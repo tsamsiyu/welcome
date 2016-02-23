@@ -19,6 +19,11 @@ class Enum implements IEnumerable, \IteratorAggregate, \Countable
         throw new \Exception("Enum has no value `$value`");
     }
 
+    public function mk($value)
+    {
+        return new static($value);
+    }
+
     public function getValue()
     {
         return $this->_value;

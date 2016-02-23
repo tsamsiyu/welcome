@@ -15,8 +15,6 @@ class WObject implements IAccessible
     use InitTraits;
     use AccessibleTrait;
 
-    private $_components;
-
 
     public function __construct()
     {
