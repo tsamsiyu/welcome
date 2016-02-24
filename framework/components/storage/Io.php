@@ -47,6 +47,7 @@ class Io
             }
             throw new \Exception("Parser is not exist for next type: `$ext`");
         }
+
         return $content;
     }
 
@@ -59,6 +60,7 @@ class Io
             }
             $content = static::encode($content, $ext);
         }
+
         return file_put_contents($path, $content);
     }
 }

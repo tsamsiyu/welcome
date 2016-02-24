@@ -67,6 +67,21 @@ trait BrancheableTrait
         return array_keys($this->_branches);
     }
 
+    /**
+     * @return string
+     */
+    public function getParentProp()
+    {
+        return $this->_parentProp;
+    }
+
+    /**
+     * @return IModel
+     */
+    public function getParent()
+    {
+        return $this->_parent;
+    }
 
     protected function createBranch($name, array $branchOptions)
     {
@@ -83,7 +98,7 @@ trait BrancheableTrait
     }
 
 
-    public function getTreeList($exclude)
+    public function getTreeList($exclude = null)
     {
         $res = $this->getAttributes();
         foreach ($this->getBranches() as $branchName) {
