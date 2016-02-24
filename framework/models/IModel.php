@@ -15,6 +15,6 @@ interface IModel
      */
     public function getAttributes($exclude = null);
 
-    public function setAttributes(array $list = []);
+    public function setAttributes(array $attributes = []);
 
 }

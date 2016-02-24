@@ -2,10 +2,8 @@
 
 use welcome\collections\Tree;
 
-class ModelsCollection extends Tree implements ITreeModel
+class ModelsCollection extends Tree implements IModelsCollection
 {
-    use BrancheableTrait;
-
     public function __construct($class)
     {
         if (!is_subclass_of($class, ITreeModel::class)) {
@@ -33,19 +31,5 @@ class ModelsCollection extends Tree implements ITreeModel
         $model = new $scope;
         $model->setAttributes($attributes);
         $this[] = $model;
-    }
-
-    /**
-     * @param null $exclude attributes names to exclude from returned list
-     * @return array
-     */
-    public function getAttributes($exclude = null)
-    {
-        // TODO: Implement getAttributes() method.
-    }
-
-    public function setAttributes(array $list = [])
-    {
-        // TODO: Implement setAttributes() method.
     }
 }

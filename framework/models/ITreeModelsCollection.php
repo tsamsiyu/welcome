@@ -1,6 +1,6 @@
 <?php namespace welcome\models;
 
-interface ITreeModel extends IModel
+interface ITreeModelsCollection extends IModelsCollection
 {
     public function addBranch($name, $class, $asSet, array $properties = [], array $options = null);
 
@@ -15,5 +15,4 @@ interface ITreeModel extends IModel
      * @return array
      */
     public function getTreeList($exclude = null);
-
 }
