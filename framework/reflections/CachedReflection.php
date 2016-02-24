@@ -18,7 +18,10 @@ class CachedReflection extends \ReflectionClass
     public function getParentClass()
     {
         if (!isset($this->_parent)) {
-            $this->_parent = parent::getParentClass();
+            $parentReflector = parent::getParentClass();
+            $class = $parentReflector->getNamespaceName();
+            $this->_parent = new static($class);
+            unset($parentReflector);
         }
 
         return $this->_parent;
